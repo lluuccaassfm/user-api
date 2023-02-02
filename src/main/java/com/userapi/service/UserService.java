@@ -28,4 +28,17 @@ public class UserService {
         return user.get();
     }
 
+    public User createUser(User newUser) {
+        return repository.save(newUser);
+    }
+
+    public User updateUser(User user) {
+        return repository.save(user);
+    }
+
+    public String deleteUser(String id) {
+        repository.deleteById(id);
+        return "Usuário excluído com sucesso !!!";
+    }
+
 }
