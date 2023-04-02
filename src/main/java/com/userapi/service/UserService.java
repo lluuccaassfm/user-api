@@ -11,6 +11,8 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    private static final String NOT_FOUND_USER = "Nenhum usuário encontrado";
+
     @Autowired
     private UserRepository repository;
 
@@ -20,17 +22,17 @@ public class UserService {
 
     public User findById(String id) throws Exception {
         Optional<User> user = repository.findById(id);
-        return user.orElseThrow(() -> new Exception("Nenhum usuário encontrado"));
+        return user.orElseThrow(() -> new Exception(NOT_FOUND_USER));
     }
 
     public User findByCodUser(Long codUser) throws Exception {
         Optional<User> user = repository.findByCodUser(codUser);
-        return user.orElseThrow(() -> new Exception("Nenhum usuário encontrado"));
+        return user.orElseThrow(() -> new Exception(NOT_FOUND_USER));
     }
 
     public User findByName(String name) throws Exception {
         Optional<User> user = repository.findByName(name);
-        return user.orElseThrow(() -> new Exception("Nenhum usuário encontrado"));
+        return user.orElseThrow(() -> new Exception(NOT_FOUND_USER));
     }
 
     public User createUser(User newUser) {

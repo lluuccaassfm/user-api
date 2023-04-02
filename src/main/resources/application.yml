@@ -4,3 +4,5 @@ spring.data.mongodb:
   host: localhost
   port: 27017
   database: userDB
+
+spring.mvc.pathmatch.matching-strategy: ant-path-matcher
