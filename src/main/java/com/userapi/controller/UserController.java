@@ -22,13 +22,18 @@ public class UserController {
     }
 
     @GetMapping("/by-id/{id}")
-    public ResponseEntity<User> findById(@PathVariable String id) {
+    public ResponseEntity<User> findById(@PathVariable String id) throws Exception {
         return ResponseEntity.ok(service.findById(id));
+    }
+
+    @GetMapping("/by-cod/{codUser}")
+    public ResponseEntity<User> findByCodUser(@PathVariable Long codUser) throws Exception {
+        return ResponseEntity.ok(service.findByCodUser(codUser));
     }
 
     // Busca por Query Param
     @GetMapping("/by-name")
-    public ResponseEntity<User> findByName(@RequestParam(value = "name") String name) {
+    public ResponseEntity<User> findByName(@RequestParam(value = "name") String name) throws Exception {
         return ResponseEntity.ok(service.findByName(name));
     }
 

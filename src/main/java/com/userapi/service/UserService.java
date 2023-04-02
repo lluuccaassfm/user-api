@@ -18,22 +18,27 @@ public class UserService {
       return repository.findAll();
     }
 
-    public User findById(String id) {
+    public User findById(String id) throws Exception {
         Optional<User> user = repository.findById(id);
-        return user.get();
+        return user.orElseThrow(() -> new Exception("Nenhum usuário encontrado"));
     }
 
-    public User findByName(String name) {
+    public User findByCodUser(Long codUser) throws Exception {
+        Optional<User> user = repository.findByCodUser(codUser);
+        return user.orElseThrow(() -> new Exception("Nenhum usuário encontrado"));
+    }
+
+    public User findByName(String name) throws Exception {
         Optional<User> user = repository.findByName(name);
-        return user.get();
+        return user.orElseThrow(() -> new Exception("Nenhum usuário encontrado"));
     }
 
     public User createUser(User newUser) {
         return repository.save(newUser);
     }
 
-    public User updateUser(User user) {
-        return repository.save(user);
+    public void updateUser(User user) {
+        repository.save(user);
     }
 
     public String deleteUser(String id) {
