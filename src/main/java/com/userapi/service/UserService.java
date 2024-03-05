@@ -1,5 +1,6 @@
 package com.userapi.service;
 
+import com.userapi.exception.NotFoundException;
 import com.userapi.model.User;
 import com.userapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private static final String NOT_FOUND_USER = "Nenhum usuário encontrado";
-
     @Autowired
     private UserRepository repository;
 
@@ -20,23 +19,23 @@ public class UserService {
       return repository.findAll();
     }
 
-    public User findById(String id) throws Exception {
+    public User findById(String id) throws NotFoundException {
         Optional<User> user = repository.findById(id);
-        return user.orElseThrow(() -> new Exception(NOT_FOUND_USER));
+        return user.orElseThrow(NotFoundException::new);
     }
 
-    public User findByCodUser(Long codUser) throws Exception {
+    public User findByCodUser(Long codUser) throws NotFoundException {
         Optional<User> user = repository.findByCodUser(codUser);
-        return user.orElseThrow(() -> new Exception(NOT_FOUND_USER));
+        return user.orElseThrow(NotFoundException::new);
     }
 
-    public User findByName(String name) throws Exception {
+    public User findByName(String name) throws NotFoundException {
         Optional<User> user = repository.findByName(name);
-        return user.orElseThrow(() -> new Exception(NOT_FOUND_USER));
+        return user.orElseThrow(NotFoundException::new);
     }
 
     public User createUser(User newUser) {
-        return repository.save(newUser);
+        return repository.insert(newUser);
     }
 
     public void updateUser(User user) {
